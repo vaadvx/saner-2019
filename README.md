@@ -22,10 +22,10 @@ We use Python with Tensorflow, keras, sklearn to build the model and run the bas
 
 ## Results
 
-
 <img src="results/binary_classification.png">   
 <img src="results/single_classification.png">   
-<img src="results/sensitivity_analysis.png">   
+<img src="results/sensitivity.png">   
+<img src="results/context.png">   
 
 
 ## Process
