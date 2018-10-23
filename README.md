@@ -22,6 +22,11 @@ We use Python with Tensorflow, keras, sklearn to build the model and run the bas
 
 ## Results
 
+- In Table 1, we prove that the performance of Bi-DTBCNN outperforms the other baselines in the cross-language binary classification.
+- In Table 2, we prove that the performance of DTBCNN outperforms the other baselines in the single language classification.
+- In Table 3, we perform an sensitivity analysis to see how different Bi-NNs is affected when number of classes increases. We can see that Bi-DTBCNN can keep up the performance whislt Bi-GGNN decreases significantly.
+- In Table 4, we show that different dependency tree can affect the performance significantly.
+
 <img src="results/binary_classification.png">   
 <img src="results/single_classification.png">   
 <img src="results/sensitivity.png">   
