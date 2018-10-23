@@ -4,6 +4,11 @@ Materials for FSE'2018
 ## Overview
 - BiD-TBCNN and D-TBCNN code in Tensorflow : /model
 - Baseline code : /baselines
+  - n-gram
+  - bow
+  - tf-idf
+  - siamese-lstm
+  - gated graph neural networks
 - Data: /data
   - Raw data : /data/code
   - Protobuf : /data/code_pb_slice
