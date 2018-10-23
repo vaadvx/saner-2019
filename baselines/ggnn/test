@@ -1,0 +1,67 @@
+# $1 - the dataset folder containing training/testing samples
+# $2 - the size of vocabulary, start with a small number and increase it if you get errors
+directory=$1
+epoch=${2:-0}
+VOCABULARY_SIZE=${VOCABULARY_SIZE:-57}
+MEMORY=${MEMORY:-128G}
+TRAIN_SIZE=${TRAIN_SIZE:-128}
+MANUAL_SEED=${MANUAL_SEED:-0}
+# derive the number of classes depending on the number of files in the training folder
+nn=$(ls $directory/train | wc -l | cut -f1 -d" ")
+N_CLASSES=${N_CLASSES:-$nn}
+N_ITER=${N_ITER:-10}
+N_STEPS=${N_STEPS:-5}
+N_STATEDIM=${N_STATEDIM:-5}
+N_HIDDEN=${N_HIDDEN:-50}
+# the cached dataset
+cache=$(dirname $directory)/$N_CLASSES
+# comment out if you want to resume computation
+rm -f $cache-train.pkl
+rm -f $cache-test.pkl
+
+# the model file
+model=$directory/$N_CLASSES
+# comment out if you want to resume computation
+mkdir -p $model
+
+# the log file
+log=$directory/log-$N_CLASSES.txt
+# comment out if you want to reset the log
+rm -f $log
+mkdir -p $directory/logs
+chmod -R o+w $directory
+
+# use the docker to run training
+proxy="--build-arg http_proxy=http://wwwcache.open.ac.uk:80 --build-arg https_proxy=http://wwwcache.open.ac.uk:80"
+if [ "$http_proxy" == "" ]; then
+ proxy=
+fi
+docker=nvidia-docker
+cuda=--cuda
+if [ "ip-172-31-34-92" == "$(hostname)" ]; then
+ docker=docker
+ cuda=
+fi
+
+docker build $proxy -t progress docker
+/usr/bin/time -f %e \
+  $docker run -v $(pwd):/e -w /e --shm-size $MEMORY --rm -it progress \
+  python main.py \
+	$cuda \
+	--testing --epoch $epoch \
+        --manualSeed $MANUAL_SEED \
+	--model_path $model --directory $directory \
+	--n_classes $N_CLASSES \
+	--n_steps $N_STEPS \
+	--n_hidden $N_HIDDEN \
+	--niter $N_ITER \
+	--size_vocabulary $VOCABULARY_SIZE \
+        --state_dim $N_STATEDIM \
+	--train_batch_size $TRAIN_SIZE \
+	--test_batch_size $TRAIN_SIZE \
+        --workers 2 \
+	--log_path $directory/logs \
+  | tee $log
+
+# extract the accuracy performance from the log
+grep Test $log | cut -f8 -d" " | sort -n | tee >> $log

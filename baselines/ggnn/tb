@@ -1,0 +1,5 @@
+t=${1:-program_data/github_cpp_babi_format_Oct-15-2018-0000024}
+#t=${1:-program_data/cpp_babi_format_Oct-10-2018-0000026}
+echo $t
+docker run --rm -p 0.0.0.0:6006:6006 -v $(pwd):/e -w /e -it tensorflow/tensorflow \
+	tensorboard --logdir=$t/logs
