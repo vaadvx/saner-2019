@@ -20,6 +20,14 @@ Download the pretrained embedding, training data and testing data here: https://
 
 We use Python with Tensorflow, keras, sklearn to build the model and run the baselines.
 
+## Results
+
+
+<img src="results/binary_classification.png">   
+<img src="results/single_classification.png">   
+<img src="results/sensitivity_analysis.png">   
+
+
 ## Process
 
 To give an overview of how we process our data, here are the steps:
