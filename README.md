@@ -2,7 +2,7 @@ Materials for Saner'2019
 ===============
 
 ## Overview
-- BiD-TBCNN and D-TBCNN code in Tensorflow : /model
+- Bi-DTBCNN and D-TBCNN code in Tensorflow : /model
 - Baseline code : /baselines
   - n-gram
   - bow
