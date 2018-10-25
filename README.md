@@ -13,7 +13,7 @@ Materials for Saner'2019
   - Raw data : /data/code
   - Protobuf : /data/code_pb_slice
   - Pickle :   /data/code_pb_slice_pkl
-
+- Labels of algorithsm : miscellaneous/algorithms.txt
 Since the training data is quite large, we store in on Google Drive.
 
 Download the pretrained embedding, training data and testing data here: https://drive.google.com/open?id=1aA-l31EwaDETdBtFFZ2EXLYkN0Z6zKgT and the raw Github Data here https://drive.google.com/open?id=103Ij5KIyL23dHXr0sCj_iNW473cMgupq and store into the directory pretrained_embedding/
